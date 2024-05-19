@@ -33,7 +33,8 @@ resource "google_service_account_iam_binding" "github_svc_binding" {
   service_account_id = google_service_account.github_svc.name
   role               = "roles/iam.workloadIdentityUser"
   members = [
-    "principalSet://iam.googleapis.com/projects/${var.project_number}/locations/global/workloadIdentityPools/gh-identity-pool/attribute.repository/HenryXiloj/wif-gcp-githubactions-integrations"
+    #"principalSet://iam.googleapis.com/projects/${var.project_number}/locations/global/workloadIdentityPools/gh-identity-pool/attribute.repository/HenryXiloj/wif-gcp-githubactions-integrations",
+    "principalSet://iam.googleapis.com/projects/${var.project_number}/locations/global/workloadIdentityPools/gh-identity-pool/attribute.repository/<MY-USER-OR-COMPANY>/<MY-REPO-NAME>"
   ]
 }
 
