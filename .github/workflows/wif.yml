@@ -43,6 +43,5 @@ jobs:
 
       - name: run terraform commands
         run: |
-          gcloud config set project ${{env.PROJECT_ID}}      
-          gcloud artifacts packages list --repository=${{ env.REPO }} \
-          --location=${{ env.REGION }}
+          gcloud config set project ${{env.PROJECT_ID}}
+          gcloud version
