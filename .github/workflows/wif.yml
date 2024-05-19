@@ -1,4 +1,4 @@
-name: GitHub Actions Cloud Run
+name: GitHub Actions WIF
 
 on:
   #push:
