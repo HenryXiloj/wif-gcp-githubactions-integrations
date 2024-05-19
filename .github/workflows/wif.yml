@@ -1,0 +1,50 @@
+name: GitHub Actions Cloud Run
+
+on:
+  #push:
+  #  branches: [ "master" ]
+  workflow_dispatch:
+    inputs:
+      env:
+        type: choice
+        default: dv
+        description: "Select the Environment"
+        required: true
+        options:
+          - dv
+
+env:
+  PROJECT_ID: terraform-workspace-422014
+  PROJECT_NO: 794058466808
+  REGION: us-central1
+  REPO: my-repo
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        
+      - id: 'auth'
+        name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v1'
+        with:
+          create_credentials_file: 'true'
+          workload_identity_provider: 'projects/${{env.PROJECT_NO}}/locations/global/workloadIdentityPools/gh-identity-pool/providers/gh-provider'
+          service_account: 'gcp-github-access@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
+
+      - name: 'Set up Cloud SDK'
+        uses: 'google-github-actions/setup-gcloud@v1'
+        with:
+          version: '>= 363.0.0'
+
+      - name: run terraform commands
+        run: |
+          gcloud config set project ${{env.PROJECT_ID}}      
+          gcloud artifacts packages list --repository=${{ env.REPO }} \
+          --location=${{ env.REGION }}
