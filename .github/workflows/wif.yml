@@ -14,9 +14,11 @@ on:
           - dv
 
 env:
-  PROJECT_ID: terraform-workspace-422014
-  PROJECT_NO: 794058466808
-
+  PROJECT_ID: <PROJECT_ID>
+  PROJECT_NO: <PROJECT_NO>
+  POOL_ID: <POOL_ID>   #gh-identity-pool
+  PROVIDER_ID: <PROVIDER_ID> #gh-provider
+  
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
@@ -33,7 +35,7 @@ jobs:
         uses: 'google-github-actions/auth@v1'
         with:
           create_credentials_file: 'true'
-          workload_identity_provider: 'projects/${{env.PROJECT_NO}}/locations/global/workloadIdentityPools/gh-identity-pool/providers/gh-provider'
+          workload_identity_provider: 'projects/${{env.PROJECT_NO}}/locations/global/workloadIdentityPools/${{env.POOL_ID}}/providers/${{PROVIDER_ID}}'
           service_account: 'gcp-github-access@${{env.PROJECT_ID}}.iam.gserviceaccount.com'
 
       - name: 'Set up Cloud SDK'
