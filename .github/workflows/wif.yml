@@ -16,8 +16,6 @@ on:
 env:
   PROJECT_ID: terraform-workspace-422014
   PROJECT_NO: 794058466808
-  REGION: us-central1
-  REPO: my-repo
 
 jobs:
   build-and-deploy:
