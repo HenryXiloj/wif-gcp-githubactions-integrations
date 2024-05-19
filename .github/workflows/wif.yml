@@ -41,7 +41,7 @@ jobs:
         with:
           version: '>= 363.0.0'
 
-      - name: run gcloud commands
+      - name: Run gcloud commands
         run: |
           gcloud config set project ${{env.PROJECT_ID}}
           gcloud version
